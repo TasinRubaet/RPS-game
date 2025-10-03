@@ -3,7 +3,6 @@ from PIL import Image, ImageTk
 import random
 import os
 
-# ---------- File Helpers ----------
 def read_score(filename):
     if os.path.exists(filename):
         with open(filename, "r") as f:
@@ -17,20 +16,17 @@ def write_score(filename, score):
     with open(filename, "w") as f:
         f.write(str(score))
 
-# ---------- Game Logic ----------
 choices = {-1: "Rock", 0: "Paper", 1: "Scissors"}
 youDict = {"Rock": -1, "Paper": 0, "Scissors": 1}
 
 score = read_score("currentscore.txt")
 highscore = read_score("highscore.txt")
 
-# ---------- Tkinter Root ----------
 root = tk.Tk()
 root.title("Rock Paper Scissors")
 root.geometry("650x500")
 root.config(bg="#282c34")
 
-# ---------- Load Images AFTER root is created ----------
 def load_image(path, size=(120,120)):
     img = Image.open(path)
     img = img.resize(size, Image.Resampling.LANCZOS)
@@ -42,7 +38,6 @@ images = {
     "Scissors": load_image("scissors.png")
 }
 
-# ---------- Game Functions ----------
 def play(player_choice):
     global score, highscore
 
@@ -69,7 +64,7 @@ def play(player_choice):
         highscore = score
         write_score("highscore.txt", highscore)
 
-    # Update GUI
+    # GUI
     lbl_player_choice.config(image=images[player_choice])
     lbl_com_choice.config(image=images[choices[com]])
     lbl_result.config(text=result, fg=color)
@@ -84,7 +79,7 @@ def reset_score():
     lbl_player_choice.config(image="")
     lbl_com_choice.config(image="")
 
-# ---------- GUI Layout ----------
+#  GUI Layout 
 lbl_title = tk.Label(root, text="Rock Paper Scissors", font=("Arial", 24, "bold"), fg="white", bg="#282c34")
 lbl_title.pack(pady=10)
 
@@ -124,3 +119,4 @@ btn_reset = tk.Button(root, text="🔄 Reset Score", font=("Arial", 12, "bold"),
 btn_reset.pack(pady=15)
 
 root.mainloop()
+
